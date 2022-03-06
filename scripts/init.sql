@@ -1,6 +1,6 @@
 CREATE DATABASE email_sender;
 
-\c email_sender /* para entrar no banco de dados */
+\c email_sender 
 
 CREATE TABLE emails (
     id SERIAL NOT NULL,
