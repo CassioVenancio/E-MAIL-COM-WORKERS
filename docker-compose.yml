@@ -9,7 +9,9 @@ services:
   db:
     image: postgres:9.6
     environment:
-      POSTGRES_PASSWORD: "postgres"
+      - DB_PASSWORD=postgres
+      - DB_USER=postgres
+      - DB_HOST=db
     volumes:
       #Volume dos dados
       - dados:/var/lib/postgresql/data
@@ -44,17 +46,19 @@ services:
     depends_on:
       - db
       - queue
+    environment:
+      - DB_NAME=email_sender
   queue:
     image: redis:3.2
     networks:
     - fila
   worker:
-    image: python:3.6
+    build: worker
     volumes:
     # worker
       - ./worker:/worker
     working_dir: /worker
-    command: bash ./app.sh
+    command: worker.py
     networks:
       - fila
     depends_on:
