@@ -9,7 +9,7 @@ services:
   db:
     image: postgres:9.6
     environment:
-      - DB_PASSWORD=postgres
+      - POSTGRES_PASSWORD=postgres
       - DB_USER=postgres
       - DB_HOST=db
     volumes:
@@ -48,6 +48,9 @@ services:
       - queue
     environment:
       - DB_NAME=email_sender
+      - DB_PASSWORD=postgres
+      - DB_USER=postgres
+      - DB_HOST=db
   queue:
     image: redis:3.2
     networks:
